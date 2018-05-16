@@ -24,7 +24,9 @@ pipeline {
     }
 
     stage('Publish') {
-      archiveArtifacts 'out/*_rootfs.tar.gz'
+      steps {
+        archiveArtifacts 'out/*_rootfs.tar.gz'
+      }
     }
  }
  post {
