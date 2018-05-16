@@ -17,7 +17,6 @@ pipeline {
           withDockerContainer(image: 'dvitali/pixelc-build-container:5', args: '--privileged') {
             sh 'bash -c "mkdir -p out/{arch,ubuntu}/rootfs"'
             sh 'UID=0 GID=0 DISTRO=arch SYSROOT=$(pwd)/out/$DISTRO/rootfs TOP=$(pwd) ./build.sh'
-            sh 'UID=0 GID=0 DISTRO=ubuntu SYSROOT=$(pwd)/out/$DISTRO/rootfs TOP=$(pwd) ./build.sh'
           }
         }
       }
@@ -25,7 +24,7 @@ pipeline {
 
     stage('Publish') {
       steps {
-        archiveArtifacts 'out/*_rootfs.tar.gz'
+        archiveArtifacts 'rootfs-builder/out/*_rootfs.tar.gz'
       }
     }
  }
